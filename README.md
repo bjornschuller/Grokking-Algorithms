@@ -74,6 +74,7 @@ Another uses case will be the use a hash table as a cache. Caching is a common w
 
 #### Collisions – performance of hash tables
 Collision is a problem that occurs when two keys have been assigned to the same slot. A collision can occur as follows.  Suppose your array contains 26 slots. And your hash function is really simple: **it assigns a spot in the array alphabetically**. You want to put the price of apples in your hash. You get assigned the first slot. Then you want to put the price of bananas in the hash. You get assigned the second slot. Everything is going so well! But now you want to put the price of avocados in your hash. You get assigned the first slot again. Oh no! Apples have that slot already! If you store the price of avocados at that slot, you’ll overwrite the price of apples. Then the next time someone asks for the price of apples, they will get the price of avocados instead! 
+
 **How to deal with collisions**: 
 - if multiple keys map to the same slot, start a linked list at that slot. However, if the linked list gets long search through also take long. 
 
@@ -172,4 +173,21 @@ So that’s the setup. The implementation will look like this:
 -	If you have negative weights, use the Bellman-Ford algorithm
 
 ### Greedy Algorthims
+A greedy algorithm is simple: at each step, pick the optimal move. In technical terms:
+at each step you pick the locally optimal solution, and in the end you are left with the globally
+optimal solution. Obviously, greedy algorithms don't always work. But they are simple to write. 
+Below we will explain some greedy algorithms. 
+
+##### Greedy Algorithm - The classroom scheduling problem
+Suppose you have a classroom and want to hold as many classes here as possible. 
+You get a list of classes, containing the name of the class, the start time and the end time. 
+You cannot hold all the classes in there, because some of them overlap. However, you want to 
+hold as many classes as possible in this classroom. In this situation you can use 'the classroom scheduling algorithm'. 
+The steps are very easy:
+* Pick the class that ends the soonest. This is the first class you will hold. 
+* Pick the class or classes that starts after the first class. Again pick the one that ends the soonest.
+This is the second class you will hold. Keep doing this till you are finished. 
+ 
+##### Greedy Algorithm - The knapsack problem
+
 

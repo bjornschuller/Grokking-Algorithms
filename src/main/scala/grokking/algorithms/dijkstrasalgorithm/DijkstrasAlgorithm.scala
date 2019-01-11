@@ -21,20 +21,20 @@ object DijkstrasAlgorithm {
     * @return
     *
     */
-  private def determineLeastCosts(graph: List[DirectedEdge], minPriorityQueue: Queue[Cost], visitedNodes: Seq[Cost]): Seq[Cost] = {
+  private def determineLowestCosts(graph: List[DirectedEdge], minPriorityQueue: Queue[Cost], visitedNodes: Seq[Cost]): Seq[Cost] = {
     if(minPriorityQueue.nonEmpty) {
       val (source, newQueue) = minPriorityQueue.dequeue
       visitedNodes.filter(_.node.contains(source.node)) match {
         case res if res.nonEmpty  =>
          // already visited this node, and since our minimalPriorityQueue is ordered from lowest to highest
          // we can ignore this one, since we know that the one that is visited later will have a higher cost than the one visited earlier
-          determineLeastCosts(graph, newQueue, visitedNodes)
+          determineLowestCosts(graph, newQueue, visitedNodes)
         case _ =>
           val neighbors = graph.filter(_.fromNode == source.node)
                                .map(x => Cost(x.toNode, x.cost + source.accumulatedCost, source.node))
           val newMinPriorityQueue = newQueue.enqueue(neighbors).sortBy(_.accumulatedCost)
           val newVisitedNodes = source +: visitedNodes
-          determineLeastCosts(graph, newMinPriorityQueue, newVisitedNodes)
+          determineLowestCosts(graph, newMinPriorityQueue, newVisitedNodes)
       }
     } else {
       visitedNodes
@@ -55,7 +55,7 @@ object DijkstrasAlgorithm {
   def dijkstra(edges: List[DirectedEdge], source: String, target: String) = {
     edges.find(_.fromNode == source) match {
       case Some(start) =>
-        val costs = determineLeastCosts(edges, Queue[Cost]().enqueue(Cost(start.fromNode, 0, start.fromNode)), Seq.empty)
+        val costs = determineLowestCosts(edges, Queue[Cost]().enqueue(Cost(start.fromNode, 0, start.fromNode)), Seq.empty)
         determineShortestPath(target, costs, Seq.empty)
       case None =>
         throw new Exception(s"Source: $source is unknown")

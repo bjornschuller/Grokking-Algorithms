@@ -1,4 +1,4 @@
-package grokking.algorithms.graphs
+package grokking.algorithms.breadthfirstsearch
 
 import scala.collection.immutable.Queue
 

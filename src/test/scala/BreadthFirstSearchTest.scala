@@ -1,5 +1,5 @@
 
-import grokking.algorithms.graphs.BreadthFirstSearch
+import grokking.algorithms.breadthfirstsearch.BreadthFirstSearch
 
 class BreadthFirstSearchTest extends TestSpec {
 
